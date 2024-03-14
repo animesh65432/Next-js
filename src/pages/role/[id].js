@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { useRouter } from "next/router";
 
 const obj = [
@@ -7,11 +6,12 @@ const obj = [
   { id: 3, name: "Suresh", role: "Frontend Developer" },
 ];
 
-const User = () => {
+const Id = () => {
   const { query } = useRouter();
-  const usernumber = parseInt(query.users);
+  const id = parseInt(query.id);
+  const index = id ? id - 1 : undefined;
 
-  if (isNaN(usernumber) || usernumber < 1 || usernumber > obj.length) {
+  if (index === undefined || index >= obj.length || index < 0) {
     return (
       <div>
         <h1>Developer doesn't exist</h1>
@@ -19,15 +19,11 @@ const User = () => {
     );
   }
 
-  const user = obj[usernumber - 1];
-
   return (
     <div>
-      <Link href={`/role/${user.id}`}>
-        <p>Name: {user.name}</p>
-      </Link>
+      <p>Role: {obj[index].role}</p>
     </div>
   );
 };
 
-export default User;
+export default Id;
